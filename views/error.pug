@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  .well
+    h1.jumbotron-heading= error.status
+    p
+      pre #{error.stack}
