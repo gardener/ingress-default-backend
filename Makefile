@@ -13,7 +13,7 @@
 # limitations under the License.
 
 PROJECT          := ingress-default-backend
-VERSION          := v0.0.2
+VERSION          := $(shell cat VERSION)
 REGISTRY         := eu.gcr.io/sap-cloud-platform-dev1
 IMAGE_REPOSITORY := $(REGISTRY)/garden/$(PROJECT)
 IMAGE_TAG        := $(VERSION)
