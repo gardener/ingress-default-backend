@@ -14,8 +14,8 @@
 
 PROJECT          := ingress-default-backend
 VERSION          := $(shell cat VERSION)
-REGISTRY         := eu.gcr.io/sap-cloud-platform-dev1
-IMAGE_REPOSITORY := $(REGISTRY)/garden/$(PROJECT)
+REGISTRY         := eu.gcr.io/gardener-project/gardener
+IMAGE_REPOSITORY := $(REGISTRY)/$(PROJECT)
 IMAGE_TAG        := $(VERSION)
 
 PATH             := $(GOBIN):$(PATH)
