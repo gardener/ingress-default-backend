@@ -1,6 +1,6 @@
 {
   "name": "ingress-default-backend",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "dependencies": {
     "body-parser": "~1.16.0",
     "express": "~4.14.1",
