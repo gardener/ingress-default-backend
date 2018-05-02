@@ -1,0 +1,28 @@
+ingress-default-backend:
+  template: 'default'
+  base_definition:
+    repo: ~
+    traits:
+      version:
+        preprocess:
+          'inject-commit-hash'
+      publish:
+        dockerimages:
+          ingress-default-backend:
+            inputs:
+              repos:
+                source: ~ # default
+            registry: 'gcr-readwrite'
+            image: 'eu.gcr.io/gardener-project/gardener/ingress-default-backend'
+    steps: ~
+  variants:
+    head-update: ~
+    pull-request:
+      traits:
+        pull-request: ~
+    release:
+      traits:
+        version:
+          preprocess: 'finalise'
+        release:
+          nextversion: 'bump_minor'
