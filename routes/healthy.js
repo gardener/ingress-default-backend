@@ -14,32 +14,11 @@
 
 'use strict';
 
-const path = require('path');
 const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
+const router = module.exports = express.Router();
 
-const app = module.exports = express();
-const index = require('./routes/index');
-const healthy = require('./routes/healthy');
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
-
-// routes
-app.use('/healthy', healthy);
-app.use('*', index);
-
-// error handler
-app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  res.render('error');
+/* GET healthiness */
+router.get('/', (req, res, next) => {
+  res.statusCode = 200
+  res.send("ok")
 });
