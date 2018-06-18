@@ -23,5 +23,7 @@ WORKDIR /usr/src/ingress-default-backend
 COPY . /usr/src/ingress-default-backend
 RUN npm install
 
+# Nobody user. For K8S is better to use numeric values.
+USER 65534:65534
 EXPOSE 8080
 CMD ["npm", "start"]
