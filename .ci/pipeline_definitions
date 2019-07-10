@@ -15,7 +15,7 @@ ingress-default-backend:
             registry: 'gcr-readwrite'
             image: 'eu.gcr.io/gardener-project/gardener/ingress-default-backend'
     steps: ~
-  variants:
+  jobs:
     head-update: ~
     pull-request:
       traits:
