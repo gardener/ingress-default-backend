@@ -22,6 +22,7 @@ const bodyParser = require('body-parser');
 const app = module.exports = express();
 const index = require('./routes/index');
 const healthy = require('./routes/healthy');
+const health_endpoint = process.env.HEALTH_ENDPOINT || '/healthy';
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -33,7 +34,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // routes
-app.use('/healthy', healthy);
+app.use(health_endpoint, healthy);
 app.use('*', index);
 
 // error handler
