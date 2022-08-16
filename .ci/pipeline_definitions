@@ -7,6 +7,10 @@ ingress-default-backend:
         preprocess:
           'inject-commit-hash'
       publish:
+        oci-builder: docker-buildx
+        platforms:
+        - linux/amd64
+        - linux/arm64
         dockerimages:
           ingress-default-backend:
             inputs:
