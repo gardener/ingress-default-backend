@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM alpine:3.8
+FROM alpine:3.15.6
 MAINTAINER Gardener Project
 
-RUN echo "@community http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    apk add --update nodejs nodejs-npm sed curl pwgen runit@community && \
+RUN apk add --update nodejs npm sed curl pwgen runit && \
     mkdir -p /usr/src/ingress-default-backend
 WORKDIR /usr/src/ingress-default-backend
 
