@@ -15,8 +15,7 @@
 FROM alpine:3.15.6
 MAINTAINER Gardener Project
 
-RUN echo "@community https://dl-cdn.alpinelinux.org/alpine/v3.15/community" >> /etc/apk/repositories && \
-    apk add --update nodejs npm sed curl pwgen runit && \
+RUN apk add --update nodejs npm sed curl pwgen runit && \
     mkdir -p /usr/src/ingress-default-backend
 WORKDIR /usr/src/ingress-default-backend
 
