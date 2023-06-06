@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM alpine:3.17.3
+FROM alpine:3.18.0
 MAINTAINER Gardener Project
 
 RUN apk add --update nodejs npm sed curl pwgen runit && \
