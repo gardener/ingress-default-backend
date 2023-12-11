@@ -4,6 +4,8 @@ ingress-default-backend:
       version:
         preprocess:
           'inject-commit-hash'
+      component_descriptor:
+        ocm_repository: europe-docker.pkg.dev/gardener-project/snapshots
       publish:
         oci-builder: docker-buildx
         platforms:
@@ -14,8 +16,7 @@ ingress-default-backend:
             inputs:
               repos:
                 source: ~ # default
-            image: 'eu.gcr.io/gardener-project/gardener/ingress-default-backend'
-    steps: ~
+            image: europe-docker.pkg.dev/gardener-project/snapshots/gardener/ingress-default-backend
   jobs:
     head-update: ~
     pull-request:
@@ -25,6 +26,11 @@ ingress-default-backend:
       traits:
         version:
           preprocess: 'finalize'
+        publish:
+          dockerimages:
+            ingress-default-backend:
+              image: europe-docker.pkg.dev/gardener-project/releases/gardener/ingress-default-backend
         release:
           nextversion: 'bump_minor'
-        component_descriptor: ~
+        component_descriptor:
+          ocm_repository: europe-docker.pkg.dev/gardener-project/releases

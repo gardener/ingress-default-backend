@@ -14,7 +14,7 @@
 
 PROJECT          := ingress-default-backend
 VERSION          := $(shell cat VERSION)
-REGISTRY         := eu.gcr.io/gardener-project/gardener
+REGISTRY         := europe-docker.pkg.dev/gardener-project/public/gardener
 IMAGE_REPOSITORY := $(REGISTRY)/$(PROJECT)
 IMAGE_TAG        := $(VERSION)
 
