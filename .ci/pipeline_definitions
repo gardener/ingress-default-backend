@@ -1,7 +1,5 @@
 ingress-default-backend:
-  template: 'default'
   base_definition:
-    repo: ~
     traits:
       version:
         preprocess:
@@ -16,7 +14,6 @@ ingress-default-backend:
             inputs:
               repos:
                 source: ~ # default
-            registry: 'gcr-readwrite'
             image: 'eu.gcr.io/gardener-project/gardener/ingress-default-backend'
     steps: ~
   jobs:
