@@ -12,17 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM alpine:3.19.0
-MAINTAINER Gardener Project
+FROM golang:1.21.5 AS builder
 
-RUN apk add --update nodejs npm sed curl pwgen runit && \
-    mkdir -p /usr/src/ingress-default-backend
-WORKDIR /usr/src/ingress-default-backend
+WORKDIR /go/src/github.com/gardener/ingress-default-backend
 
-COPY . /usr/src/ingress-default-backend
-RUN npm install
+# Copy go mod and sum files
+COPY go.mod go.sum ./
+# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+RUN go mod download
 
-# Nobody user. For K8S is better to use numeric values.
+COPY . .
+
+ARG EFFECTIVE_VERSION
+RUN make install EFFECTIVE_VERSION=$EFFECTIVE_VERSION
+
+############# ingress-default-backend
+FROM  gcr.io/distroless/static:latest AS ingress-default-backend
+WORKDIR /
+
+COPY public /public
+COPY routes /routes
+COPY --from=builder /go/bin/ingress-default-backend /ingress-default-backend
 USER 65534:65534
 EXPOSE 8080
-CMD ["npm", "start"]
+ENTRYPOINT ["/ingress-default-backend"]
