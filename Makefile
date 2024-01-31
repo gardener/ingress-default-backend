@@ -17,10 +17,19 @@ VERSION          := $(shell cat VERSION)
 REGISTRY         := europe-docker.pkg.dev/gardener-project/public/gardener
 IMAGE_REPOSITORY := $(REGISTRY)/$(PROJECT)
 IMAGE_TAG        := $(VERSION)
+EFFECTIVE_VERSION                          := $(VERSION)-$(shell git rev-parse HEAD)
 
 PATH             := $(GOBIN):$(PATH)
 
 export PATH
+
+ifneq ($(strip $(shell git status --porcelain 2>/dev/null)),)
+	EFFECTIVE_VERSION := $(EFFECTIVE_VERSION)-dirty
+endif
+
+.PHONY: install
+install:
+	@EFFECTIVE_VERSION=$(EFFECTIVE_VERSION) ./hack/install.sh ./...
 
 .PHONY: build
 build: docker-image
