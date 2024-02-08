@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.21.6 AS builder
+FROM golang:1.22.0 AS builder
 
 WORKDIR /go/src/github.com/gardener/ingress-default-backend
 
