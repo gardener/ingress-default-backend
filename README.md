@@ -1,4 +1,5 @@
 # Ingress Default Backend
+[![REUSE status](https://api.reuse.software/badge/github.com/gardener/ingress-default-backend)](https://api.reuse.software/info/github.com/gardener/ingress-default-backend)
 
 The Ingress Default Backend is a tool that is used for the [`nginx-ingress-controller`](https://github.com/kubernetes/ingress-nginx). It serves a static HTML page which is shown for all incoming requests to nginx that are not controlled by an Ingress object.
 
