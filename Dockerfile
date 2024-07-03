@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM golang:1.22.4 AS builder
+FROM golang:1.23rc1 AS builder
 
 WORKDIR /go/src/github.com/gardener/ingress-default-backend
 
