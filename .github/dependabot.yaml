@@ -5,3 +5,10 @@ updates:
   directory: /
   schedule:
     interval: daily
+  allowed-updates:
+    - match:
+        dependency-name: "golang"
+        update-types: ["version-update:semver-minor", "version-update:semver-patch"]
+  ignore:
+    - dependency-name: "golang"
+      versions: ["*-rc*"]
