@@ -13,9 +13,23 @@ PATH             := $(GOBIN):$(PATH)
 
 export PATH
 
+TOOLS_DIR := hack/tools
+include $(TOOLS_DIR)/tools.mk
+
 ifneq ($(strip $(shell git status --porcelain 2>/dev/null)),)
 	EFFECTIVE_VERSION := $(EFFECTIVE_VERSION)-dirty
 endif
+
+.PHONY: sast
+sast: $(GOSEC)
+	@./hack/sast.sh
+
+.PHONY: sast-report
+sast-report: $(GOSEC)
+	@./hack/sast.sh --gosec-report true
+
+.PHONY: verify
+verify: sast-report
 
 .PHONY: install
 install:

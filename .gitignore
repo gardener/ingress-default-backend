@@ -1,2 +1,7 @@
 bin
+/hack/tools/bin
 .kube-secrets
+.idea
+
+# gosec
+gosec-report.sarif
