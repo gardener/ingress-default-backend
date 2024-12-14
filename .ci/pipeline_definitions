@@ -17,6 +17,9 @@ ingress-default-backend:
               repos:
                 source: ~ # default
             image: europe-docker.pkg.dev/gardener-project/snapshots/gardener/ingress-default-backend
+    steps:
+      verify:
+        image: golang:1.23.4
   jobs:
     head-update: ~
     pull-request:

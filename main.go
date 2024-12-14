@@ -12,6 +12,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -38,8 +39,9 @@ func main() {
 	router.NotFoundHandler = http.HandlerFunc(notFoundHandler)
 
 	server := &http.Server{
-		Addr:    ":" + port,
-		Handler: router,
+		Addr:              ":" + port,
+		Handler:           router,
+		ReadHeaderTimeout: 10 * time.Second,
 	}
 
 	fmt.Printf("Kubernetes backend started on port %s...\n", port)
