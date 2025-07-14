@@ -31,7 +31,7 @@ clean-tools-bin:
 
 # default tool versions
 # renovate: datasource=github-releases depName=securego/gosec
-GOSEC_VERSION ?= v2.20.0
+GOSEC_VERSION ?= v2.22.5
 
 $(GOSEC): $(call tool_version_file,$(GOSEC),$(GOSEC_VERSION))
 	@GOSEC_VERSION=$(GOSEC_VERSION) $(TOOLS_DIR)/install-gosec.sh
