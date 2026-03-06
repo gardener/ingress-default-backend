@@ -1,0 +1,59 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    ':semanticCommitsDisabled',
+    'github>gardener/ci-infra//config/renovate/makefile-versions.json5',
+    'github>gardener/ci-infra//config/renovate/automerge-with-tide.json5',
+    'github>gardener/ci-infra//config/renovate/group-go-updates.json5',
+  ],
+  labels: [
+    'kind/enhancement',
+  ],
+  postUpdateOptions: [
+    'gomodTidy',
+  ],
+  // Add PR footer with empty release note by default.
+  prFooter: '**Release note**:\n```other dependency\nNONE\n```',
+  // Only rebase when there are conflicts. Prow tests against the latest state of master branch anyway before merging the PR.
+  rebaseWhen: 'conflicted',
+  customManagers: [
+    {
+      // Update golang version in Dockerfile.
+      customType: 'regex',
+      managerFilePatterns: [
+        '/Dockerfile$/',
+      ],
+      matchStrings: [
+        'FROM golang:(?<currentValue>\\S+) AS builder',
+      ],
+      datasourceTemplate: 'docker',
+      depNameTemplate: 'golang',
+    },
+  ],
+  separateMinorPatch: true,
+  packageRules: [
+    {
+      // Automerge patch updates.
+      matchUpdateTypes: [
+        'patch',
+      ],
+      automerge: true,
+    },
+    {
+      // Do not update to patch versions of the Go Toolchain.
+      // Default golang images set the environment variable GOTOOLCHAIN=local
+      // and we don't want to enforce every (test-)image to be on the latest patch level.
+      matchManagers: [
+        'gomod',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
+      enabled: false,
+      matchPackageNames: [
+        '/go/',
+      ],
+    },
+  ],
+}
